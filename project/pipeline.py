@@ -57,6 +57,11 @@ class data_pipeline():
         data_dir = os.path.join(os.path.dirname(current_dir), 'data')
         os.makedirs(data_dir, exist_ok=True)
         db_path = os.path.join(data_dir, 'Sayad.sqlite')
+
+        # Check if the database already exists and remove it if it does
+        if os.path.exists(db_path):  # CHANGE START: Check for existing database file
+            os.remove(db_path)      # CHANGE: Remove existing database file
+            
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         if primary_key is not None:
