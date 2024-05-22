@@ -53,3 +53,4 @@ This data source contains Chicago's Road Accident details for the year of 2019 t
 [i4]: https://github.com/Ibne-Sayad/SS24-made-template-FAU/issues/4
 [i5]: https://github.com/Ibne-Sayad/SS24-made-template-FAU/issues/5
 [i6]: https://github.com/Ibne-Sayad/SS24-made-template-FAU/issues/6
+
