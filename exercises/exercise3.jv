@@ -1,0 +1,63 @@
+pipeline GoodsPipeline {
+
+    // Extracts Goods CSV file from the desired url (In: None, Out: File)
+    block GoodsExtractor oftype HttpExtractor {
+        url: "https://www-genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv";
+    }
+
+    // Converts Goods File to TextFile (In: File, Out: TextFile)
+    block GoodsTextFileInterpreter oftype TextFileInterpreter { encoding: "latin2"; }
+
+    // Select the appropriate range from Goods TextFile, ignore metadata (In: TextFile, Out: TextFile)
+    block GoodsTextRangeSelector oftype TextRangeSelector { lineFrom: 9; lineTo: 41336; }
+
+    // Converts Goods TextFile to Sheet (In: TextFile, Out: Sheet)
+    block GoodsCSVInterpreter oftype CSVInterpreter { delimiter: ";"; }
+
+    // Rename some columns from Goods Sheet (In: Sheet, Out: Sheet)
+    block GoodsCellWriter_AtoE oftype CellWriter { at: range A1:E1; write: ["year", "month", "goods_id", "goods_name", "goods_source"]; }
+    block GoodsCellWriter_ATtoAU oftype CellWriter { at: range AT1:AU1; write: ["abroad", "total"]; }
+  
+    // Data validation for other columns
+    constraint PositiveRange oftype RangeConstraint { lowerBound: 0; lowerBoundInclusive: false;}
+    valuetype PositiveInteger oftype integer { constraints: [ PositiveRange ]; }
+
+    // valid id 
+    constraint ValidIdFormat oftype RegexConstraint {
+        regex: /^NST7-[A-Z0-9]{3}$/;
+    }
+
+    valuetype ValidId oftype text {constraints: [ValidIdFormat,];}
+
+    // Converts Goods Sheet to Table and dropped unnecessary columns (In: Sheet, Out: Table)
+    block GoodsTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "year" oftype PositiveInteger,
+            "month" oftype text,
+            "goods_id" oftype ValidId,
+            "goods_name" oftype text,
+            "goods_source" oftype text,
+            "abroad" oftype PositiveInteger,
+            "total" oftype PositiveInteger,
+        ];
+    }
+
+    // Load Goods data into sqlite database (In: Table, Out: None)
+    block GoodsLoader oftype SQLiteLoader {
+        table: "goods";
+        file: "../data/goodsTransportedByTrain.sqlite";
+    }
+
+    // Build a chain of all the GoodsPipeline's blocks
+    GoodsExtractor
+        -> GoodsTextFileInterpreter
+        -> GoodsTextRangeSelector
+        -> GoodsCSVInterpreter
+        -> GoodsCellWriter_AtoE
+        -> GoodsCellWriter_ATtoAU
+        -> GoodsTableInterpreter
+        -> GoodsLoader;
+
+}
+
