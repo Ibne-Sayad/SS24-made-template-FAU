@@ -22,7 +22,7 @@ Overall, the analysis can help alleviate the pains of uncertainty about the driv
 
 <!-- Describe each datasources you plan to use in a section. Use the prefic "DatasourceX" where X is the id of the datasource. -->
 
-### Datasource1: Weather Data of New York City
+### Datasource1: Weather Data of the city of Chicago
 * Metadata URL: [https://www.visualcrossing.com/weather/weather-data-services](https://www.visualcrossing.com/weather/weather-data-services)
 * Sample Data URL: [https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/retrievebulkdataset?&key=7VFTHZFT2Q26LWQAMFSULD8RS&taskId=51fcebf78072cff4c3ce3a2a01aafc92&zip=false](https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/retrievebulkdataset?&key=7VFTHZFT2Q26LWQAMFSULD8RS&taskId=51fcebf78072cff4c3ce3a2a01aafc92&zip=false)
 * Data Type: CSV
