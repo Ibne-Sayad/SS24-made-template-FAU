@@ -9,12 +9,12 @@ pipeline GoodsPipeline {
     block GoodsTextFileInterpreter oftype TextFileInterpreter { encoding: "latin2"; }
 
     // Select the appropriate range from Goods TextFile, ignore metadata (In: TextFile, Out: TextFile)
-    block GoodsTextRangeSelector oftype TextRangeSelector { lineFrom: 9; lineTo: 41336; }
+    block GoodsTextRangeSelector oftype TextRangeSelector { lineFrom: 8; lineTo: 41336; }
 
     // Converts Goods TextFile to Sheet (In: TextFile, Out: Sheet)
     block GoodsCSVInterpreter oftype CSVInterpreter { delimiter: ";"; }
 
-    // Rename some columns from Goods Sheet (In: Sheet, Out: Sheet)
+    // Rename necessary columns from Goods Sheet (In: Sheet, Out: Sheet)
     block GoodsCellWriter_AtoE oftype CellWriter { at: range A1:E1; write: ["year", "month", "goods_id", "goods_name", "goods_source"]; }
     block GoodsCellWriter_ATtoAU oftype CellWriter { at: range AT1:AU1; write: ["abroad", "total"]; }
   
@@ -29,12 +29,43 @@ pipeline GoodsPipeline {
 
     valuetype ValidId oftype text {constraints: [ValidIdFormat,];}
 
+    constraint ValidMonthFormat oftype RegexConstraint {
+        regex: /\b(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\b/;
+    }
+
+    valuetype ValidMonth oftype text {constraints: [ValidMonthFormat,];}
+
+    transform convertUppercaseJanuar 
+    {
+        from inputName oftype text;
+        to outputName oftype text;
+        outputName: inputName replace /Januar/ with 'JANUAR' ;
+    }
+    block convertUppercaseJanuar oftype TableTransformer
+    {
+        inputColumns: ['month'];
+        outputColumn: 'month';
+        use: convertUppercaseJanuar;
+    }
+    transform convertUppercaseFebruar
+    {
+        from inputName oftype text;
+        to outputName oftype text;
+        outputName: inputName replace /Februar/ with 'FEBRUAR';
+    }
+    block convertUppercaseFebruar oftype TableTransformer
+    {
+        inputColumns: ['month'];
+        outputColumn: 'month';
+        use: convertUppercaseFebruar;
+    }
+
     // Converts Goods Sheet to Table and dropped unnecessary columns (In: Sheet, Out: Table)
     block GoodsTableInterpreter oftype TableInterpreter {
         header: true;
         columns: [
             "year" oftype PositiveInteger,
-            "month" oftype text,
+            "month" oftype ValidMonth,
             "goods_id" oftype ValidId,
             "goods_name" oftype text,
             "goods_source" oftype text,
@@ -46,7 +77,7 @@ pipeline GoodsPipeline {
     // Load Goods data into sqlite database (In: Table, Out: None)
     block GoodsLoader oftype SQLiteLoader {
         table: "goods";
-        file: "../data/goodsTransportedByTrain.sqlite";
+        file: "./goodsTransportedByTrain.sqlite";
     }
 
     // Build a chain of all the GoodsPipeline's blocks
@@ -57,6 +88,8 @@ pipeline GoodsPipeline {
         -> GoodsCellWriter_AtoE
         -> GoodsCellWriter_ATtoAU
         -> GoodsTableInterpreter
+        -> convertUppercaseJanuar
+        -> convertUppercaseFebruar
         -> GoodsLoader;
 
 }

@@ -27,7 +27,7 @@ Overall, the analysis can help alleviate the pains of uncertainty about the driv
 * Sample Data URL: [https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/retrievebulkdataset?&key=7VFTHZFT2Q26LWQAMFSULD8RS&taskId=51fcebf78072cff4c3ce3a2a01aafc92&zip=false](https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/retrievebulkdataset?&key=7VFTHZFT2Q26LWQAMFSULD8RS&taskId=51fcebf78072cff4c3ce3a2a01aafc92&zip=false)
 * Data Type: CSV
 
-This data source contains Chicago's weather report generated from [Visual Crossing](https://www.visualcrossing.com) throughout the city from 2023. This data source will provide weather and climate data in New York including air temperature, precipitation, snow depth, visibility, wind speed, and additional relevant attributes. 
+This data source contains Chicago's weather report generated from [Visual Crossing](https://www.visualcrossing.com) throughout the city from 2023. This data source will provide weather and climate data in Chicago including air temperature, precipitation, snow depth, visibility, wind speed, and additional relevant attributes. 
 
 ### Datasource2: Road Accident Data of the city of Chicago
 * Metadata URL: [https://catalog.data.gov/dataset/traffic-crashes-vision-zero-chicago-traffic-fatalities](https://catalog.data.gov/dataset/traffic-crashes-vision-zero-chicago-traffic-fatalities)
