@@ -38,7 +38,7 @@ pipeline AirportsPipeline {
     // Loader Block: Load airports data into sqlite database (In: Table, Out: None)
     block AirportsLoader oftype SQLiteLoader {
         table: "airports";
-        file: "../data/airports.sqlite";
+        file: "./airports.sqlite";
     }
 
     // Pipe: Build a chain of all the AirportsPipeline's blocks

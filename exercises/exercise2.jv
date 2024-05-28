@@ -35,7 +35,7 @@ pipeline TreesPipeline {
 
     block  DataLoader oftype SQLiteLoader {
         table: "trees";
-        file: "../data/trees.sqlite";
+        file: "./trees.sqlite";
         dropTable: false;
 
     }
