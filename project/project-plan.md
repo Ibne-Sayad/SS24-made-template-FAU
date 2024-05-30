@@ -6,7 +6,7 @@ Impact of weather on motor vehicle accident in the city of Chicago.
 ## Summary
 
 <!-- Describe your data science project in max. 5 sentences. -->
-This advanced data engineering project aims to analyze the **Impact of weather on motor vehicle accidents in the city of Chicago** generated from several automatic counting stations throughout the city to determine what kind of weather is suitable for driving motor vehicles in the city of Chicago. The project will use two open data sources: [VisualCrossing](https://www.visualcrossing.com), which contains information on weather in Chicago, and [Data.gov](https://data.gov), which provides road accident data of Chicago. The analysis will focus on identifying patterns and trends in accident rates in Chicago throughout the year 2023 to assess the impact of its weather in the city. Additionally, the analysis will examine the weather and climate data to determine if Chicago's weather and climate conditions are conducive for driving in a particular month or year.
+This advanced data engineering project aims to analyze the **Impact of weather on motor vehicle accidents in the city of Chicago** generated from several automatic counting stations throughout the city to determine what kind of weather is suitable for driving motor vehicles in the city of Chicago. The project will use two open data sources: [Meteostst](https://meteostat.net/de/), which contains information on weather in Chicago, and [Data.gov](https://data.gov), which provides road accident data of Chicago. The analysis will focus on identifying patterns and trends in accident rates in Chicago throughout the year 2023 to assess the impact of its weather in the city. Additionally, the analysis will examine the weather and climate data to determine if Chicago's weather and climate conditions are conducive for driving in a particular month or year.
 
 ## Rationale
 
@@ -23,18 +23,18 @@ Overall, the analysis can help alleviate the pains of uncertainty about the driv
 <!-- Describe each datasources you plan to use in a section. Use the prefic "DatasourceX" where X is the id of the datasource. -->
 
 ### Datasource1: Weather Data of the city of Chicago
-* Metadata URL: [https://www.visualcrossing.com/weather/weather-data-services](https://www.visualcrossing.com/weather/weather-data-services)
-* Sample Data URL: [https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/retrievebulkdataset?&key=7VFTHZFT2Q26LWQAMFSULD8RS&taskId=51fcebf78072cff4c3ce3a2a01aafc92&zip=false](https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/retrievebulkdataset?&key=7VFTHZFT2Q26LWQAMFSULD8RS&taskId=51fcebf78072cff4c3ce3a2a01aafc92&zip=false)
+* Metadata URL: [https://meteostat.net/de/place/us/chicago?s=72534&t=2023-01-01/2023-12-31](https://meteostat.net/de/place/us/chicago?s=72534&t=2023-01-01/2023-12-31)
+* Sample Data URL: [https://bulk.meteostat.net/v2/hourly/72534.csv.gz](https://bulk.meteostat.net/v2/hourly/72534.csv.gz)
 * Data Type: CSV
 
-This data source contains Chicago's weather report generated from [Visual Crossing](https://www.visualcrossing.com) throughout the city from 2023. This data source will provide weather and climate data in Chicago including air temperature, precipitation, snow depth, visibility, wind speed, and additional relevant attributes. 
+This data source contains Chicago's weather report generated from [Meteostst](https://meteostat.net/de/) throughout the city from 2023. This data source will provide weather and climate data in Chicago including air temperature, precipitation, snow depth, visibility, wind speed, and additional relevant attributes. 
 
 ### Datasource2: Road Accident Data of the city of Chicago
 * Metadata URL: [https://catalog.data.gov/dataset/traffic-crashes-vision-zero-chicago-traffic-fatalities](https://catalog.data.gov/dataset/traffic-crashes-vision-zero-chicago-traffic-fatalities)
 * Sample Data URL: [https://data.cityofchicago.org/api/views/gzaz-isa6/rows.csv](https://data.cityofchicago.org/api/views/gzaz-isa6/rows.csv)
 * Data Type: CSV
 
-This data source contains Chicago's Road Accident details for the year of 2019 to 2024. There are several attributes of like Accident Date, Location, Victim etc. 
+This data source contains Chicago's Road Accident details for the year of 2019 to 2024. For our analytical purpose, I will only calculate the year 2023. There are several attributes of like Accident Date, Location, Victim etc. 
 
 ## Work Packages
 
