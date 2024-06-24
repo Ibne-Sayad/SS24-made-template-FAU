@@ -1,7 +1,7 @@
 import unittest
 import os
 import sqlite3
-from pipeline2 import execute_pipeline
+from project.pipeline import execute_pipeline
 
 class TestDataPipeline(unittest.TestCase):
 
