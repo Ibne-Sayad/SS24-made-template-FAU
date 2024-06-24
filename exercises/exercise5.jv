@@ -1,0 +1,79 @@
+pipeline GTFSDataPipeline {
+
+      // Create the pipeline flow for GTFSDataPipeline
+    GTFSDataDownloader
+        -> ZIPInterpreter
+        -> SelectStopsFile
+        -> ReadStopsFile
+        -> ParseCSVData
+        -> TransformStopsData
+        -> LoadStopsToSQLite;
+
+    // Download GTFS data from a specified URL
+    block GTFSDataDownloader oftype HttpExtractor {
+        url: "https://gtfs.rhoenenergie-bus.de/GTFS.zip";
+    }
+
+    // Interpret the downloaded file as a ZIP archive
+    block ZIPInterpreter oftype ArchiveInterpreter {
+        archiveType: "zip";
+    }
+
+    // Select a specific file from the extracted contents
+    block SelectStopsFile oftype FilePicker {
+        path: "/stops.txt";
+    }
+
+    // Read the chosen file as a text file
+    block ReadStopsFile oftype TextFileInterpreter {}
+
+    // Parse the text file as CSV data
+    block ParseCSVData oftype CSVInterpreter {
+        enclosing: '"';
+        enclosingEscape: '"';
+    }
+    // Define validation rules for Coordinates
+    valuetype ValidCoordinateType oftype decimal {
+        constraints: [LatitudeLongitudeRange];
+    }
+
+    constraint LatitudeLongitudeRange oftype RangeConstraint {
+        lowerBound: -90;
+        lowerBoundInclusive: true;
+        upperBound: 90;
+        upperBoundInclusive: true;
+    }
+
+    // Define validation rules for Zone
+    valuetype ValidZoneType oftype integer {
+        constraints: [Zone1645Constraint];
+    }
+
+    constraint Zone1645Constraint oftype RangeConstraint {
+        lowerBound: 1645;
+        lowerBoundInclusive: true;
+        upperBound: 1645;
+        upperBoundInclusive: true;
+    }
+
+    
+    
+    // Transform Stops data to a Table, drop unnecessary columns, and rename headers
+    block TransformStopsData oftype TableInterpreter {
+        header: true;
+        columns: [
+            "stop_id" oftype integer,
+            "stop_name" oftype text,
+            "stop_lat" oftype ValidCoordinateType,
+            "stop_lon" oftype ValidCoordinateType,
+            "zone_id" oftype ValidZoneType,
+        ];
+    }
+
+    // Load the transformed data into an SQLite table
+    block LoadStopsToSQLite oftype SQLiteLoader {
+        table: "stops";
+        file: "./gtfs_data.sqlite";
+    }
+
+}
