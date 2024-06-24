@@ -73,7 +73,7 @@ pipeline GTFSDataPipeline {
     // Load the transformed data into an SQLite table
     block LoadStopsToSQLite oftype SQLiteLoader {
         table: "stops";
-        file: "./gtfs_data.sqlite";
+        file: "./gtfs.sqlite";
     }
 
 }
