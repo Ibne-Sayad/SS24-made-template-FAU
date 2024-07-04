@@ -1,3 +1,15 @@
+## Project Title
+Impact of weather on motor vehicle accident in the city of Chicago.
+
+## Summary
+
+This  report  aims  to  analyze  the  relationship  between  different  weather  conditions  and  traffic 
+accidents in Chicago city. The primary question addressed in this report is:  What is the impact of 
+weather on motor  vehicle accidents in the city of Chicago  in 2023? Understanding the impact of weather on traffic accidents is crucial for city planning, public safety, 
+and  implementing  preventive  measures.  By  analyzing  monthly  accident  data  alongside  weather 
+data,  I  aim  to  uncover  patterns  and  correlations  that  can  help  mitigate  risks  and  improve  road 
+safety.
+
 # Exercise Badges
 
 ![](https://byob.yarr.is/Ibne-Sayad/SS24-made-template-FAU/score_ex1) ![](https://byob.yarr.is/Ibne-Sayad/SS24-made-template-FAU/score_ex2) ![](https://byob.yarr.is/Ibne-Sayad/SS24-made-template-FAU/score_ex3) ![](https://byob.yarr.is/Ibne-Sayad/SS24-made-template-FAU/score_ex4) ![](https://byob.yarr.is/Ibne-Sayad/SS24-made-template-FAU/score_ex5)
